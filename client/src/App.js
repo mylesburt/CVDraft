@@ -1,12 +1,8 @@
 import React from "react";
 import "./styles.css";
 
-const App = () => {
-  return (
-    <div>
-      <h1>App</h1>
-    </div>
-  );
-};
+function App() {
+  return <div>Hello</div>;
+}
 
 export default App;
