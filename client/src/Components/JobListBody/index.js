@@ -1,50 +1,39 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 
-function JobListBody(props) {
-  //Create a jobs state using useState
-  useEffect(() => {
-    function loadJobs() {
-      axios
-        .get("/api/jobs")
-        .then((res) => props.setJobs(res.data))
-        .catch((err) => console.log(err));
-    }
+// destructuring is great, makes it explicit what you're working with,
+// so props can be destructured into the props you're passing by name
 
-    loadJobs();
-    //Do a GET request to /jobs
-    //Update the jobs state upon getting response from backend
-  }, []);
+// this is just a presentational component - you don't want it doing any
+// state management, just providing the layout of your data, and the button
+// for deletion
 
+function JobListBody({jobs, handleDelete}) {
   return (
     <div className="col-span-4">
-      {props.jobs.map((job) => {
+      {jobs.map((job) => {
+         // destructure your object to make it cleaner to use
+        const {title, dueDate, company, jobLink} = job;
+
         return (
-          <div className="mt-3 space-y-1 px-4 pb-4">
+          <div key={title + dueDate} className="mt-3 space-y-1 px-4 pb-4">
             <div class="overflow-hidden shadow-md">
-              <h2 key="" href={"/api/jobs"}>
-                {job.title}
-              </h2>
+              <h2>{title}</h2>
               <div class="px-6 py-4 bg-white border-b border-gray-200 font-bold uppercase">
-                <p key="" href={"/api/jobs"}>
-                  {job.dueDate}
-                </p>
+                <p>{dueDate}</p>
               </div>
-              <p key="" href={"/api/jobs"}>
-                {job.company}
-              </p>
+              <p>{company}</p>
               <div class="p-6 bg-white border-b border-gray-200">
-                <p key="" href={"/api/jobs"}>
-                  {job.jobLink}
-                </p>
+                <p>{jobLink}</p>
               </div>
               <div class="p-6 bg-white border-gray-200 text-right">
-                <a
+                <button
                   class="bg-blue-500 shadow-md text-sm text-white font-bold py-3 md:px-8 px-4 hover:bg-blue-400 rounded uppercase"
-                  href="#"
+                   // we're passing the title through this function
+                   // so we can delete the job based on it's title
+                  onClick={() => handleDelete(title)}
                 >
                   Delete
-                </a>
+                </button>
               </div>
             </div>
           </div>
