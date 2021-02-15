@@ -13,6 +13,13 @@ function SignIn() {
   function validateForm() {
     return email.length > 0 && password.length > 0;
   }
+
+  // Once your sign in is returning - where are you querying the JWT
+  // and how are you letting the app know a user is authenticated?
+
+  // You will also want to redirect on login, given you're using React Router
+  // this link ought to help https://serverless-stack.com/chapters/redirect-on-login-and-logout.html
+
   async function handleSumbit(e) {
     e.preventDefault();
     try {
@@ -20,11 +27,13 @@ function SignIn() {
         email,
         password,
       };
+      // axios.post("/api/login", registerData)
       await axios.post("");
     } catch (err) {
       console.error(err);
     }
   }
+
   return (
     <div className="flex items-center justify-center h-screen bg-yellow-300 bg-opacity-75">
       <div className="inline-block align-middle bg-white shadow-md rounded px-8 py-8 pt-8">
